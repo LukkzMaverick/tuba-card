@@ -1,0 +1,46 @@
+
+.criarJogo{
+    padding: 3rem 1rem;
+    margin-bottom: 1em;
+}
+.criarJogo__form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.criarJogo__errorMessage, .criarJogo__sucessAlert{
+    width: 100%;
+    margin-bottom: 2rem;
+}
+.criarJogo__errorList, .criarJogo__sucessAlert, .criarJogo__form label, .divCamposDinamicos, .criarJogo__form input{
+    width: 100%;
+    max-width: 600px;
+}
+
+.criarJogo__form input{
+    padding: 0.5em;
+    margin-top: 0.2em;
+    margin-bottom: 1em;
+    border-radius: 7px;
+    
+}
+.criarJogo__title{
+    font-size: 2rem;
+    margin-bottom: 1em;
+    text-align: center;
+    color: var(--violet-blue);
+}
+.criarJogo__button{
+    margin-top: 1em;
+    color: white;
+    background-color: var(--primary-color);
+    padding: 0.5em;
+    width:60%;
+    max-width: 300px;
+    border-radius: 5px;
+    align-self: center;
+    font-size: 1.2rem;
+}
+.criarJogo__button:hover{
+    background-color:var(--primary-hover);
+}

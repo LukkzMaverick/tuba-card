@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuba Card - Criar jogo</title>
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/normalize.css">
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/criar-jogo.css">
+</head>
+<body>
+    <header class="header">
+        <div class='container'>
+            <h1>Tuba Card</h1>
+            <nav class='navbar'>
+                <ul class="">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Entrar</a></li>
+                    <li><a href="#">Registre-se</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="main-criar-jogo container">
+            <h2 class='criar-jogo-title'>Criar jogo</h2>
+            <form class='criar-jogo' method="post" action="http://localhost:3000/api/jogos">
+                <label for="nomeJogo">Nome do jogo</label>
+                <input type="text" name="nomeJogo" id="nomeJogo" required>
+                <label for="quantidadePropriedades">Quantidade de atributos</label>
+                <input max='5' min='2' type="number" name='quantidadePropriedades' 
+                id="quantidadePropriedades" required placeholder="Mínimo: 2, máximo: 5">
+                <button class='button' type="submit">Criar</button>
+            </form>
+        </div>
+    </main>
+    <footer class='footer-fixed'>
+        <div class="container">
+            <p class='footer-paragraph'>©2020 Tuba Card – Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/criarJogo.js"></script>
+    <script src="js/responsiveFooter.js"></script>
+</body>
+</html>

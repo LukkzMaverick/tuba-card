@@ -1,0 +1,11 @@
+:root{
+  --primary-color: #4385F5;
+  --primary-hover: #4169e1;
+  --jogo-card-title-color: var(--primary-color);
+  --black-olive: #424041;
+  --violet-blue: #171553;
+}
+.container {
+	width: 94%;
+	margin: 0 auto;
+}
