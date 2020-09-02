@@ -1,9 +1,14 @@
 import React, { Fragment, useState } from 'react';
 import Header from './components/general/Header';
-import Footer from './components/general/Footer';
 import CadastrarJogo from './components/pages/CadastrarJogo/CadastrarJogo';
 import ListarJogos from './components/pages/ListarJogos';
 import Login from './components/pages/Login/Login';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Jogos from './view/jogos';
 
 
 function App() {
@@ -11,12 +16,20 @@ function App() {
   const [page, setPage] = useState('Login')
 
   return (
-    <Fragment>
-      <Header navigateTo={setPage}></Header>
+    <Router>
+      <Header></Header>
       <main>
-      {renderizarPaginaCondicional(page)}
+        <Switch>
+
+          <Route exact path='/login' component={Login}></Route>
+          <Route path='/' component={Jogos}></Route>
+          {/* <Route exact path='/jogos/criar' component={CadastrarJogo}></Route>
+          <Route exact path='/teste' component={() => (<h1>Teste</h1>)}></Route>
+          <Route exact path='/login' component={Login}></Route> */}
+          <Route exact path="*" component={() => (<h1>404 | Not Found</h1>)}> </Route>
+        </Switch>
       </main>
-    </Fragment>
+    </Router>
   );
 
   function renderizarPaginaCondicional(paginaAtual){

@@ -7,6 +7,7 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import AlertDialog from "../../general/alerts/AlertDialog";
+import { Link } from "react-router-dom";
 
 function ListarJogos({ navigateTo }) {
   const [jogos, setJogos] = useState([]);
@@ -14,6 +15,8 @@ function ListarJogos({ navigateTo }) {
   const [jogosLength, setJogosLength] = useState(0)
   const [showExclusionAlert, setShowExclusionAlert] = useState(false)
   const [exclusionAlert, setExclusionAlert] = useState({jogo: '', deletarJogo: deletarJogo})
+
+  const history = useHistory()
   
   useEffect(() => {
     getList();
@@ -22,10 +25,8 @@ function ListarJogos({ navigateTo }) {
   const getList = useCallback(async () => {
     try {
       const jogosR = await Jogo.listarJogos();
-      console.log(jogosR.data.length)
       if(jogosR.data.length === 0){
-        console.log('entrou no if')
-        navigateTo('CadastrarJogo')
+        history.push('/jogos/criar')
       }
       setJogos(jogosR.data);
       setJogosLength(jogosR.data.length)
@@ -102,9 +103,11 @@ function ListarJogos({ navigateTo }) {
       </section>
       {showExclusionAlert ? <AlertDialog {...exclusionAlert}></AlertDialog> : ''}
       <div className={classes.addJogo}>
-        <Fab onClick={() => navigateTo('CadastrarJogo')} color="primary" aria-label="Criar um novo jogo">
-          <AddIcon />
-        </Fab>
+        <Link to='/jogos/criar'>
+          <Fab color="primary" aria-label="Criar um novo jogo">
+            <AddIcon />
+          </Fab>
+        </Link>
       </div>
       
     </div>
