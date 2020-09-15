@@ -9,7 +9,7 @@
     margin-bottom: 2rem;
     color: var(--violet-blue);
 }
-.login__input{
+.login__input, .alertError{
     padding: 0.5em;
     margin-top: 0.2em;
     margin-bottom: 1em;

@@ -1,49 +1,47 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import Header from './components/general/Header';
-import CadastrarJogo from './components/pages/CadastrarJogo/CadastrarJogo';
-import ListarJogos from './components/pages/ListarJogos';
 import Login from './components/pages/Login/Login';
+
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect,
 } from "react-router-dom";
 import Jogos from './view/jogos';
-
+import { isAuthenticated } from './config/auth';
+import LoginContext from './context/LoginContext';
 
 function App() {
 
-  const [page, setPage] = useState('Login')
+  const [isLogged, setIsLogged] = useState(isAuthenticated())
+
+  const PrivateRoute = ({...rest}) => {
+    if(!isAuthenticated()){
+      return <Redirect to='/login'></Redirect>
+    }
+    return <Route {...rest}></Route>
+    
+  }
 
   return (
     <Router>
-      <Header></Header>
-      <main>
-        <Switch>
+      <LoginContext.Provider value={{isLogged: isLogged, setIsLogged: setIsLogged}}>
+        <Header></Header>
+        <main>
+          <Switch>
 
-          <Route exact path='/login' component={Login}></Route>
-          <Route path='/' component={Jogos}></Route>
-          {/* <Route exact path='/jogos/criar' component={CadastrarJogo}></Route>
-          <Route exact path='/teste' component={() => (<h1>Teste</h1>)}></Route>
-          <Route exact path='/login' component={Login}></Route> */}
-          <Route exact path="*" component={() => (<h1>404 | Not Found</h1>)}> </Route>
-        </Switch>
-      </main>
+            <Route exact path='/login' component={Login}></Route>
+              <PrivateRoute path='/' component={Jogos}></PrivateRoute>
+            {/* <Route exact path='/jogos/criar' component={CadastrarJogo}></Route>
+            <Route exact path='/teste' component={() => (<h1>Teste</h1>)}></Route>
+            <Route exact path='/login' component={Login}></Route> */}
+            <Route exact path="*" component={() => (<h1>404 | Not Found</h1>)}> </Route>
+          </Switch>
+        </main>
+      </LoginContext.Provider>
     </Router>
   );
-
-  function renderizarPaginaCondicional(paginaAtual){
-    switch(paginaAtual){
-      case "ListarJogos": 
-        return <ListarJogos navigateTo={setPage}/>
-      case "CadastrarJogo":
-        return <CadastrarJogo navigateTo={setPage}/>
-      case "Login":
-        return <Login navigateTo={setPage}/>
-      default:
-        return <h1>Erro 404. Página não encontrada</h1>
-    }
-  }
 
 }
 

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import classes from "./listar-jogos.module.css";
 import Jogo from "../../../services/jogo";
 import Loader from "react-loader-spinner";
@@ -8,18 +8,25 @@ import { Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import AlertDialog from "../../general/alerts/AlertDialog";
 import { Link } from "react-router-dom";
+import {
+  useHistory
+} from "react-router-dom";
+import EditarJogoContext from '../../../context/EditarJogoContext';
 
-function ListarJogos({ navigateTo }) {
+function ListarJogos() {
   const [jogos, setJogos] = useState([]);
   const [loading, setLoaded] = useState(false);
   const [jogosLength, setJogosLength] = useState(0)
   const [showExclusionAlert, setShowExclusionAlert] = useState(false)
   const [exclusionAlert, setExclusionAlert] = useState({jogo: '', deletarJogo: deletarJogo})
+  const editar = useContext(EditarJogoContext)
 
   const history = useHistory()
   
   useEffect(() => {
+    document.title = 'Jogos - Tuba Card'
     getList();
+    
   }, []);
 
   const getList = useCallback(async () => {
@@ -35,6 +42,19 @@ function ListarJogos({ navigateTo }) {
       console.log(error);
     }
   }, []);
+
+  function navigateToCadastrarJogos(){
+    history.push('/jogos/criar')
+  }
+
+  function navigateToEditarJogos(){
+    editar.setJogoCadastro({novoJogo: false, jogo:{
+      id: '5f5f6d7680ca8231a8e9ab76',
+      nome: 'Avatar',
+      propriedades: ['Água', 'Ar', 'Fogo', 'Terra']
+    }})
+    history.push('/jogos/criar')
+  }
 
   function handleDelete({ _id, nomeJogo }) {
     const jogo = {
@@ -103,7 +123,7 @@ function ListarJogos({ navigateTo }) {
       </section>
       {showExclusionAlert ? <AlertDialog {...exclusionAlert}></AlertDialog> : ''}
       <div className={classes.addJogo}>
-        <Link to='/jogos/criar'>
+        <Link onClick={navigateToEditarJogos}>
           <Fab color="primary" aria-label="Criar um novo jogo">
             <AddIcon />
           </Fab>
