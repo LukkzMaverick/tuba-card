@@ -30,7 +30,7 @@ function CadastrarJogo(){
             const jogo = editar.jogoCadastro.jogo
             const quantidadePropriedades = jogo.propriedades.length
             console.log(jogo)
-            setForm({nomeJogo: jogo.nome, quantidadePropriedades: jogo.propriedades.length,propriedades: jogo.propriedades})
+            setForm({nomeJogo: jogo.nomeJogo, quantidadePropriedades: jogo.propriedades.length,propriedades: jogo.propriedades})
             setTimeout(() => {
                 for(let i = 1; i <= quantidadePropriedades; i++){
                     document.querySelector(`#propriedade${i}`).value = jogo.propriedades[i-1]
@@ -94,7 +94,7 @@ function CadastrarJogo(){
             let response;
             switch(requestType){
                 case 'post': response = await jogo.criarJogo(form.nomeJogo, propriedadesArray)
-                case 'put': response = await jogo.editarJogo(editar.jogoCadastro.jogo.id, form.nomeJogo, propriedadesArray)
+                case 'put': response = await jogo.editarJogo(editar.jogoCadastro.jogo._id, form.nomeJogo, propriedadesArray)
             }
             if(response.status === 201 || response.status === 202){
                 setMostrarAlertSucess(true)

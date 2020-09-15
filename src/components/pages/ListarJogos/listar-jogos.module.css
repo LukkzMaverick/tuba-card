@@ -58,14 +58,23 @@
     color: var(--very-dark-blue);
 }
 
-.jogoCard__trash{
+.jogoCard__trash, .jogoCard__edit{
     color: white;
     font-size: 20px;
     flex: 1 1 0;
+}
+.jogoCard__trash{
     margin-right: 1rem;
+}
+.jogoCard__edit{
+    margin-right: 0.75rem;
 }
 .jogoCard__trash:hover{
     color: #d11a2a;
+    cursor: pointer;
+}
+.jogoCard__edit:hover{
+    color: antiquewhite;
     cursor: pointer;
 }
 

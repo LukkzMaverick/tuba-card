@@ -3,7 +3,7 @@ import classes from "./listar-jogos.module.css";
 import Jogo from "../../../services/jogo";
 import Loader from "react-loader-spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import AlertDialog from "../../general/alerts/AlertDialog";
@@ -44,15 +44,12 @@ function ListarJogos() {
   }, []);
 
   function navigateToCadastrarJogos(){
+    editar.setJogoCadastro({novoJogo: true})
     history.push('/jogos/criar')
   }
 
-  function navigateToEditarJogos(){
-    editar.setJogoCadastro({novoJogo: false, jogo:{
-      id: '5f5f6d7680ca8231a8e9ab76',
-      nome: 'Avatar',
-      propriedades: ['Água', 'Ar', 'Fogo', 'Terra']
-    }})
+  function navigateToEditarJogos(jogo){
+    editar.setJogoCadastro({novoJogo: false, jogo})
     history.push('/jogos/criar')
   }
 
@@ -83,6 +80,12 @@ function ListarJogos() {
         <section key={index} className={classes.jogoCard}>
           <div className={classes.jogoCard__rowTitle}>
             <h2 className={classes.jogoCard__title}>{jogo.nomeJogo}</h2>
+            <FontAwesomeIcon aria-label={`Remover jogo ${jogo.nomeJogo}`}
+              onClick={() => navigateToEditarJogos(jogo)}
+              className={classes.jogoCard__edit}
+              size="1x"
+              icon={faEdit}
+            />
             <FontAwesomeIcon aria-label={`Remover jogo ${jogo.nomeJogo}`}
               onClick={() => handleDelete(jogo)}
               className={classes.jogoCard__trash}
@@ -123,7 +126,7 @@ function ListarJogos() {
       </section>
       {showExclusionAlert ? <AlertDialog {...exclusionAlert}></AlertDialog> : ''}
       <div className={classes.addJogo}>
-        <Link onClick={navigateToEditarJogos}>
+        <Link onClick={navigateToCadastrarJogos}>
           <Fab color="primary" aria-label="Criar um novo jogo">
             <AddIcon />
           </Fab>
