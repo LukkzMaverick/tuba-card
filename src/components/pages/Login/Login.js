@@ -47,7 +47,8 @@ function Login() {
     setLoading(true)
     try {
       const {data} = await user.logar(form)
-      saveToken(data.token)
+      console.log(data)
+      saveToken(data.token, data.user.id)
       login.setIsLogged(true)
       http.defaults.headers['x-auth-token'] = getToken()
       history.push('/jogos')
@@ -59,7 +60,6 @@ function Login() {
       setLoading(false)
       setMostrarAlertError(true)
       setMensagensErro(<Fragment>{erros}</Fragment>)
-
     }
   }
     

@@ -1,11 +1,18 @@
 const TOKEN_KEY = 'tuba-card-token'
+const USER_ID = 'tuba-card-user-id'
 
 const getToken = () => localStorage.getItem(TOKEN_KEY)
 
-const saveToken = (token) => localStorage.setItem(TOKEN_KEY, token)
+const getUserId = () => localStorage.getItem(USER_ID)
+
+const saveToken = (token, userId) => {
+    localStorage.setItem(TOKEN_KEY, token)
+    localStorage.setItem(USER_ID, userId)
+}
 
 const removeToken = () => {
     localStorage.removeItem(TOKEN_KEY)
+    localStorage.removeItem(USER_ID)
     isAuthenticated()
 }
 
@@ -22,5 +29,6 @@ export {
     isAuthenticated,
     getToken,
     saveToken,
-    removeToken
+    removeToken,
+    getUserId
 }

@@ -12,6 +12,7 @@ import {
   useHistory
 } from "react-router-dom";
 import EditarJogoContext from '../../../context/EditarJogoContext';
+import { getUserId } from "../../../config/auth";
 
 function ListarJogos() {
   const [jogos, setJogos] = useState([]);
@@ -20,7 +21,7 @@ function ListarJogos() {
   const [showExclusionAlert, setShowExclusionAlert] = useState(false)
   const [exclusionAlert, setExclusionAlert] = useState({jogo: '', deletarJogo: deletarJogo})
   const editar = useContext(EditarJogoContext)
-
+  const userId = getUserId()
   const history = useHistory()
   
   useEffect(() => {
@@ -31,7 +32,7 @@ function ListarJogos() {
 
   const getList = useCallback(async () => {
     try {
-      const jogosR = await Jogo.listarJogos();
+      const jogosR = await Jogo.listarJogos(userId);
       if(jogosR.data.length === 0){
         history.push('/jogos/criar')
       }

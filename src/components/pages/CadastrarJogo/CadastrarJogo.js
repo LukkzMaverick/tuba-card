@@ -4,13 +4,13 @@ import jogo from '../../../services/jogo'
 import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
 import EditarJogoContext from '../../../context/EditarJogoContext';
+import { getUserId } from '../../../config/auth';
 
 function CadastrarJogo(){
     const [mostrarErros, setMostrarErros] = useState(false)
     const [mostrarAlertSucess, setMostrarAlertSucess] = useState(false)
     const [mensagensErro, setMensagensErro] = useState([])
     const [botaoHabilitado, setBotaoHabilitado] = useState(true)
-    const [rowsAtributos, setRowsAtributos]  = useState('')
     const history = useHistory()
     const editar = useContext(EditarJogoContext)
     const novoJogo = editar.jogoCadastro.novoJogo
@@ -29,7 +29,6 @@ function CadastrarJogo(){
             document.title = 'Editar Jogo - Tuba Card'
             const jogo = editar.jogoCadastro.jogo
             const quantidadePropriedades = jogo.propriedades.length
-            console.log(jogo)
             setForm({nomeJogo: jogo.nomeJogo, quantidadePropriedades: jogo.propriedades.length,propriedades: jogo.propriedades})
             setTimeout(() => {
                 for(let i = 1; i <= quantidadePropriedades; i++){
@@ -92,9 +91,10 @@ function CadastrarJogo(){
             if(erros.length > 0)
                 return displayErrors(erros)
             let response;
+            const userId = getUserId()
             switch(requestType){
-                case 'post': response = await jogo.criarJogo(form.nomeJogo, propriedadesArray)
-                case 'put': response = await jogo.editarJogo(editar.jogoCadastro.jogo._id, form.nomeJogo, propriedadesArray)
+                case 'post': response = await jogo.criarJogo(form.nomeJogo, propriedadesArray, userId); break;
+                case 'put': response = await jogo.editarJogo(editar.jogoCadastro.jogo._id, form.nomeJogo, propriedadesArray); break;
             }
             if(response.status === 201 || response.status === 202){
                 setMostrarAlertSucess(true)
@@ -150,7 +150,6 @@ function CadastrarJogo(){
                 <input min={2} max={5} onChange={formHandler} value={form.quantidadePropriedades} type="number" name='quantidadePropriedades' 
                 id="quantidadePropriedades" required placeholder="Mínimo: 2, máximo: 5"/>
                 {mostrarCamposPropriedades()}
-                {rowsAtributos}
                 <button disabled={!botaoHabilitado} onClick={novoJogo ? () => requestHandler('post') : () => requestHandler('put')} className={classes.criarJogo__button} type="button">Criar</button>
             </form>
         </div>
