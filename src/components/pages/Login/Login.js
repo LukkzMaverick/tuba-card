@@ -47,7 +47,6 @@ function Login() {
     setLoading(true)
     try {
       const {data} = await user.logar(form)
-      console.log(data)
       saveToken(data.token, data.user.id)
       login.setIsLogged(true)
       http.defaults.headers['x-auth-token'] = getToken()

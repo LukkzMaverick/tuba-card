@@ -4,7 +4,8 @@ import './resetAndNormalize.css'
 import './base.css'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
+require('dotenv').config()
+console.log(process.env.REACT_APP_API_URL)
 ReactDOM.render(
   <React.StrictMode>
     <App />
