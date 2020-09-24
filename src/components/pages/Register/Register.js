@@ -1,5 +1,5 @@
 import React, { useState, useContext, Fragment,useEffect } from 'react';
-import classes from './login.module.css'
+import classes from '../Login/login.module.css'
 import user from '../../../services/user'
 import { saveToken, getToken } from '../../../config/auth';
 import { useHistory } from 'react-router-dom';
@@ -8,7 +8,7 @@ import http from '../../../config/config';
 import Alert from '@material-ui/lab/Alert';
 import { CircularProgress } from '@material-ui/core';
 
-function Login() {
+function Register() {
   const [loading, setLoading] = useState(false)
   const [mostrarAlertError, setMostrarAlertError] = useState(false)
   const [mensagensErro, setMensagensErro] = useState([])
@@ -20,7 +20,7 @@ function Login() {
   const login = useContext(LoginContext)
 
   useEffect(() => {
-    document.title = 'Login - Tuba Card'
+    document.title = 'Registre-se - Tuba Card'
     document.addEventListener('keypress', enviarFormPeloEnter)
     return () => {
       document.removeEventListener('keypress', enviarFormPeloEnter)
@@ -42,10 +42,10 @@ function Login() {
     }) 
   }
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     setLoading(true)
     try {
-      const {data} = await user.logar(form)
+      const {data} = await user.registrar(form)
       saveToken(data.token, data.user.id)
       login.setIsLogged(true)
       http.defaults.headers['x-auth-token'] = getToken()
@@ -53,8 +53,9 @@ function Login() {
     } catch (error) {
       let erros = []
       error.response.data.errors.map((error, index) => {
-      return erros.push(<li key={index} >{error.msg}</li>)
+        return erros.push(<li key={index} >{error.msg}</li>)
       })
+      console.log(error)
       setLoading(false)
       setMostrarAlertError(true)
       setMensagensErro(<Fragment>{erros}</Fragment>)
@@ -66,7 +67,7 @@ function Login() {
     
     <div className='container'>
         <form className={classes.login}>
-        <h2 className={[classes.login__title, "centered-title"].join(" ")}>Login</h2>
+        <h2 className={[classes.login__title, "centered-title"].join(" ")}>Criar Conta</h2>
         {mostrarAlertError ? <Alert className={classes.alertError} severity="error">
           <ul>
           {mensagensErro}
@@ -77,10 +78,10 @@ function Login() {
           <label className={classes.login__label} htmlFor='senha'>Senha</label>
           <input onChange={formHandler} value={form.senha} className={classes.login__input} id='senha' name='senha' type='password'></input>
           {loading ? <CircularProgress size={40}></CircularProgress> : ''}
-          <button id={'botaoLogin'} type='button' onClick={() => handleLogin()} className={classes.login__button}>Entrar</button>
+          <button id={'botaoLogin'} type='button' onClick={() => handleRegister()} className={classes.login__button}>Registre-se</button>
         </form>
     </div>
   )
 }
 
-export default Login;
+export default Register;

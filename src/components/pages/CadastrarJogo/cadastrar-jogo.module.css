@@ -25,10 +25,7 @@
     
 }
 .criarJogo__title{
-    font-size: 2rem;
     margin-bottom: 1em;
-    text-align: center;
-    color: var(--violet-blue);
 }
 .criarJogo__button{
     margin-top: 1em;

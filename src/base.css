@@ -9,3 +9,8 @@
 	width: 94%;
 	margin: 0 auto;
 }
+.centered-title{
+    text-align: center;
+    color: var(--violet-blue);
+    font-size: 2rem;
+}

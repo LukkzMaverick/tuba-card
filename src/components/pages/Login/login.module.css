@@ -5,9 +5,7 @@
     align-items: center;
 }
 .login__title{
-    font-size: 2rem;
     margin-bottom: 2rem;
-    color: var(--violet-blue);
 }
 .login__input, .alertError{
     padding: 0.5em;

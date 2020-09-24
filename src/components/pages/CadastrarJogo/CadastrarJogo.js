@@ -38,10 +38,10 @@ function CadastrarJogo(){
         }
       return () => {
       };
-    }, [])
+    }, [editar.jogoCadastro.jogo, novoJogo])
 
-    const formHandler = (event) => {
-        if(event.target.name == 'quantidadePropriedades'){
+    function formHandler (event) {
+        if(event.target.name === 'quantidadePropriedades'){
             if(event.target.value !== ''){
                 if(event.target.value < 2 || event.target.value > 5){
                     return displayErrors(["Quantidade de atributos precisa ser um valor entre 2 e 5"]);
@@ -58,12 +58,12 @@ function CadastrarJogo(){
         let nomeJogoValidation = false
         let quantidadeDePropriedadesValidation = false
         let retorno = []
-        if(form.nomeJogo != ''){
+        if(form.nomeJogo !== ''){
             nomeJogoValidation = true
         }else{
             retorno.push('O campo Nome do jogo é obrigatório.')
         }
-        if(form.quantidadePropriedades != ''){
+        if(form.quantidadePropriedades !== ''){
             quantidadeDePropriedadesValidation = true
         }else{
             retorno.push('O campo Quantidade de atributos é obrigatório.')
@@ -95,6 +95,7 @@ function CadastrarJogo(){
             switch(requestType){
                 case 'post': response = await jogo.criarJogo(form.nomeJogo, propriedadesArray, userId); break;
                 case 'put': response = await jogo.editarJogo(editar.jogoCadastro.jogo._id, form.nomeJogo, propriedadesArray); break;
+                default: alert("Ocorreu um erro inesperado. Contate a equipe de desenvolvimento. Erro dentro do switch do requestHandler no arquivo CadastrarJogo.js ")
             }
             if(response.status === 201 || response.status === 202){
                 setMostrarAlertSucess(true)
@@ -114,7 +115,7 @@ function CadastrarJogo(){
         let erroList = []
 
         errors.map((erro) => {
-            erroList.push(<li>{erro}</li>)
+            return erroList.push(<li>{erro}</li>)
         })
 
         setMostrarErros(true)
@@ -134,7 +135,7 @@ function CadastrarJogo(){
 
     return (
         <div className={[classes.criarJogo, 'container'].join(' ')}>
-            <h2 className={classes.criarJogo__title}>{novoJogo ? 'Criar Jogo' : 'Editar Jogo'}</h2>
+            <h2 className={[classes.criarJogo__title, "centered-title"].join(" ")}>{novoJogo ? 'Criar Jogo' : 'Editar Jogo'}</h2>
             <form className={classes.criarJogo__form}>
                 {mostrarAlertSucess ? <Alert className={classes.criarJogo__sucessAlert} severity="success">
   {novoJogo ? 'Jogo criado com sucesso!' : 'Jogo editado com sucesso!'}

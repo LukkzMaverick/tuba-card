@@ -24,11 +24,7 @@ function ListarJogos() {
   const userId = getUserId()
   const history = useHistory()
   
-  useEffect(() => {
-    document.title = 'Jogos - Tuba Card'
-    getList();
-    
-  }, []);
+  
 
   const getList = useCallback(async () => {
     try {
@@ -42,16 +38,25 @@ function ListarJogos() {
     } catch (error) {
       console.log(error);
     }
+  }, [history, userId]);
+
+  useEffect(() => {
+    document.title = 'Jogos - Tuba Card'
+    getList();
+  }, [getList]);
+
+  useEffect(() => {
+    return () => {
+      setJogos([])
+    };
   }, []);
 
-  function navigateToCadastrarJogos(){
+  function navigateToCadastrarJogosHandler(){
     editar.setJogoCadastro({novoJogo: true})
-    history.push('/jogos/criar')
   }
 
-  function navigateToEditarJogos(jogo){
+  function navigateToEditarJogosHandler(jogo){
     editar.setJogoCadastro({novoJogo: false, jogo})
-    history.push('/jogos/criar')
   }
 
   function handleDelete({ _id, nomeJogo }) {
@@ -81,12 +86,12 @@ function ListarJogos() {
         <section key={index} className={classes.jogoCard}>
           <div className={classes.jogoCard__rowTitle}>
             <h2 className={classes.jogoCard__title}>{jogo.nomeJogo}</h2>
-            <FontAwesomeIcon aria-label={`Remover jogo ${jogo.nomeJogo}`}
-              onClick={() => navigateToEditarJogos(jogo)}
-              className={classes.jogoCard__edit}
-              size="1x"
-              icon={faEdit}
-            />
+            <Link to="/jogos/criar" onClick={() => navigateToEditarJogosHandler(jogo)}>
+              <FontAwesomeIcon aria-label={`Remover jogo ${jogo.nomeJogo}`}
+                className={classes.jogoCard__edit}
+                size="1x"
+                icon={faEdit} />
+              </Link>
             <FontAwesomeIcon aria-label={`Remover jogo ${jogo.nomeJogo}`}
               onClick={() => handleDelete(jogo)}
               className={classes.jogoCard__trash}
@@ -109,7 +114,7 @@ function ListarJogos() {
 
   return (
     <div className={[classes.listarJogos, "container"].join(" ")}>
-      <h2 className={classes.title}>Meus Jogos</h2>
+      <h2 className={[classes.title, 'centered-title'].join(" ")}>Meus Jogos</h2>
       
       <section className={jogosLength <= 2 ? [classes.jogos, classes.jogosWithTwoElements].join(' ') : classes.jogos}>
         {!loading ? (
@@ -127,7 +132,7 @@ function ListarJogos() {
       </section>
       {showExclusionAlert ? <AlertDialog {...exclusionAlert}></AlertDialog> : ''}
       <div className={classes.addJogo}>
-        <Link onClick={navigateToCadastrarJogos}>
+        <Link to='/jogos/criar' onClick={navigateToCadastrarJogosHandler}>
           <Fab color="primary" aria-label="Criar um novo jogo">
             <AddIcon />
           </Fab>
