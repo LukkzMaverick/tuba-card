@@ -35,7 +35,7 @@ export default function AlertDialog(props) {
           <Button onClick={() => handleClose(true)} color="primary" autoFocus>
             Sim
           </Button>
-          <Button onClick={() => handleClose(false)} color="primary">
+          <Button onClick={() => handleClose(false)} color="secondary">
             Não
           </Button>
         </DialogActions>

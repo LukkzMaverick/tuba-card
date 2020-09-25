@@ -22,6 +22,23 @@ function CadastrarJogo(){
         ]
     })
 
+   
+    useEffect(() => {
+        document.addEventListener('keypress', enviarFormPeloEnter)
+        return () => {
+          document.removeEventListener('keypress', enviarFormPeloEnter)
+        };
+    
+        function enviarFormPeloEnter(e){
+          if(e.key === 'Enter'){
+            let botaoLogin = document.querySelector('#botaoLogin')
+            botaoLogin.click()
+          }
+        }
+    
+      }, [])
+
+    
     useEffect(() => {
         if(novoJogo === true){
             document.title = 'Criar Jogo - Tuba Card'
@@ -137,11 +154,11 @@ function CadastrarJogo(){
         <div className={[classes.criarJogo, 'container'].join(' ')}>
             <h2 className={[classes.criarJogo__title, "centered-title"].join(" ")}>{novoJogo ? 'Criar Jogo' : 'Editar Jogo'}</h2>
             <form className={classes.criarJogo__form}>
-                {mostrarAlertSucess ? <Alert className={classes.criarJogo__sucessAlert} severity="success">
+                {mostrarAlertSucess ? <Alert closeText="Fechar" onClose={() => setMostrarAlertSucess(false)} className={classes.criarJogo__sucessAlert} severity="success">
   {novoJogo ? 'Jogo criado com sucesso!' : 'Jogo editado com sucesso!'}
 </Alert> : ''}
                 <ul className={classes.criarJogo__errorList}>
-                    {mostrarErros ? <Alert  className={classes.criarJogo__errorMessage} severity="error">
+                    {mostrarErros ? <Alert  closeText="Fechar" onClose={() => setMostrarErros(false)} className={classes.criarJogo__errorMessage} severity="error">
                         {mensagensErro}
                     </Alert> : ''}
                 </ul>

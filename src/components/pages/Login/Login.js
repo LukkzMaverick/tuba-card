@@ -67,7 +67,7 @@ function Login() {
     <div className='container'>
         <form className={classes.login}>
         <h2 className={[classes.login__title, "centered-title"].join(" ")}>Login</h2>
-        {mostrarAlertError ? <Alert className={classes.alertError} severity="error">
+        {mostrarAlertError ? <Alert closeText="Fechar" onClose={() => setMostrarAlertError(false)} className={classes.alertError} severity="error">
           <ul>
           {mensagensErro}
           </ul>
