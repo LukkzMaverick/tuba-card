@@ -14,7 +14,6 @@ const Routers = () => {
         <Switch>
             <Route exact path='/' component={ListarJogos}></Route>
             <Route exact path='/jogos/criar' component={CadastrarJogo}></Route>
-            <Route exact path='/login' component={Login}></Route>
             <Route exact path="*" component={() => (<h1>404 | Not Found</h1>)} />
         </Switch>
     </Router>

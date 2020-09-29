@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { getToken } from './auth';
+import { getToken, removeToken } from './auth';
+import history from './history';
 
 const http = axios.create({
     baseURL: process.env.REACT_APP_API_URL
@@ -20,11 +21,11 @@ const interceptor = http.interceptors.response.use(
         if (error.message === 'Network Error' && !error.response) {
             alert('Erro de conexão')
         }
-
         switch (status) {
             case 401:
-                // removeToken()
-                history.push('/login')
+                history.push('/logint')
+                removeToken()
+                history.go(0)
                 break;
             default:
                 console.log(status, `Aconteceu um erro ${status}`)
