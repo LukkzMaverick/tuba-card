@@ -6,9 +6,11 @@ Projeto completamente responsivo.
 # Pré-Requisitos
 
  - [Node JS](https://nodejs.org/en/)
- 
-## Getting Started
-    Antes de iniciar o front é necessário que o back já esteja rodando.
 
+## Getting Started
     npm install   
     npm start
+
+## Configuração Inicial
+- Renomear o .env.example para .env
+- Iniciar o back-end antes de rodar o front
