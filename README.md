@@ -12,4 +12,4 @@ Projeto completamente responsivo. Este site(back+front) está hospedado em https
 
 ## Configuração Inicial
 - Renomear o .env.example para .env
-- Iniciar o back-end antes de rodar o front - back-end_rep: https://gitlab.com/lucas.cunha1/tuba-card-api/
+- Iniciar o back-end antes de rodar o front - back-end_rep: https://github.com/LukkzMaverick/tuba-card-api
